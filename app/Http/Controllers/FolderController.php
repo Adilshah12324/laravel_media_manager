@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Folder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FolderController extends Controller
@@ -21,6 +22,7 @@ class FolderController extends Controller
             File::makeDirectory(storage_path($folderPath), 0755, true);
 
             $folderName = new Folder();
+            $folderName->user_id = Auth::user()->id;
             $folderName->name = $request->input('name');
             $folderName->save();
             return redirect()->back()->with('success', 'Folder created successfully.');
