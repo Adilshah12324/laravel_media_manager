@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class FileController extends Controller
 {
     public function index(){
-        $folders = Folder::all();
+        $folders = Folder::where('user_id',auth()->user()->id)->get();
         return view('index',compact('folders'));
     }
 

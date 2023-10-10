@@ -15,6 +15,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    {{-- <pre>{{$folders->user_id}}</pre> --}}
                     @if($folders)
                         @foreach($folders as $folder)
                             <a class="dropdown-item" href="{{route('create.file',$folder->name)}}">{{$folder->name}}</a>
