@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('folder_id');
             $table->string('path');
             $table->string('original_name');
+            $table->foreign('folder_id')->references('id')->on('folders')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

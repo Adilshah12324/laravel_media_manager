@@ -10,37 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="/">Media Manager</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="nav navbar-nav menu">
-            <li class="nav-item">
-                <a class="nav-link active" href="#" data-toggle="modal" data-target="#exampleModal">Create Folder</a>
-            </li>
-
-            <div class="dropdown">
-                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    My Folders
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    @if($folders)
-                        @foreach($folders as $folder)
-                            <a class="dropdown-item" href="{{route('create.file',$folder->name)}}">{{$folder->name}}</a>
-                        @endforeach
-                    @else
-                        <a class="dropdown-item" href="#">No Folder Found</a>
-                    @endif
-                </div>
-            </div>
-        </ul>
-    </div>
-</nav>
-
+@include('layouts.nav')
 {{--start session--}}
 @if(session('success'))
     <div class="alert alert-success">
@@ -89,7 +59,8 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">Upload File Here
-            <div class="container">
+            <a href="{{route('file.index')}}" class="btn btn-info mb-5 float-right">Back To Home</a>
+            <div class="container mt-5">
                 <form action="{{route('upload.file')}}" method="post" enctype="multipart/form-data" class="dropzone" id="file-upload">
                     @csrf
                     <input type="hidden" name="folderName" value="{{ request()->segment(3) }}">

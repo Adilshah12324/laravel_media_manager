@@ -22,13 +22,25 @@ class FileController extends Controller
     {
         $file = $request->file('file');
         $folderName = $request->input('folderName');
+        $folder = Folder::where('name', $folderName)->first();
         $path = $file->store($folderName,'public');
 
         $uploadedFile = File::create([
+            'folder_id' => $folder->id,
             'path' => $path,
             'original_name' => $file->getClientOriginalName(),
         ]);
 
         return response()->json(['message' => 'File uploaded successfully.', 'file' => $uploadedFile]);
+    }
+
+    public function delete(Request $request, $id){
+        $file = File::find($id);
+        $file->delete();
+        $folderPath = public_path('storage/'. $file->path);
+        if (\Illuminate\Support\Facades\File::exists($folderPath)) {
+            \Illuminate\Support\Facades\File::delete($folderPath);
+            return redirect()->back()->with('success', 'File Deleted successfully.');
+        }
     }
 }

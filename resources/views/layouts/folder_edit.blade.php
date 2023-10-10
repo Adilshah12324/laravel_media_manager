@@ -26,8 +26,17 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-header">
+            <h4>Update Folder Name</h4>
             <div class="card-body">
-                @include('layouts.folder_crud')
+{{--                {{route('update.folder')}}--}}
+                <form class="form-inline" action="{{route('update.folder',$folder->id)}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" name="name" value="{{$folder->name}}" placeholder="Enter Folder Name">
+                    </div>
+                    <button type="submit" class="btn btn-success mb-2 ml-2">Update</button>
+                </form>
             </div>
         </div>
     </div>
@@ -58,3 +67,4 @@
     </div>
 </div>
 {{--end modal--}}
+
